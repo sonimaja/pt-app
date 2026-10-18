@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="shell">
-<header><div class="brand"><div class="logo">✳</div><span>Sofia PT</span></div><span class="spark">OMA VALMENTAJA · 1.1</span></header>
+<header><div class="brand"><div class="logo">✳</div><span>Sofia PT</span></div><span class="spark">OMA VALMENTAJA · 1.3</span></header>
 <section class="hero"><div><div class="tag">Ravinto · palautuminen · voima</div><h1>Vähän kerrallaan.<br>Vahvemmaksi joka viikko.</h1><p>Helppo päiväkirja ruoalle, vatsan tuntemuksille ja harjoittelulle. Arvioi, seuraa ja opi – ilman täydellistä suorittamista.</p></div><div class="hero-graphic"><span>🌿</span></div></section>
 <nav class="tabs" aria-label="Sovelluksen osiot">
 <button class="active" data-tab="today">Tänään</button><button data-tab="symptoms">Vatsa & oireet</button><button data-tab="training">Treenit</button><button data-tab="weekly">Viikkokatsaus</button><button data-tab="ideas">Ruokaideat</button><button data-tab="settings">Asetukset</button>
@@ -55,9 +55,30 @@
 <div class="idea"><span class="badge">5 · Myöhempi tavoite</span><h3>EMOM / AMRAP laatua painottaen</h3><p>EMOM: minuuttirytminen harjoitus, jossa jätetään aina selvästi palautumisaikaa. AMRAP: rauhallisia, laadukkaita kierroksia oman voinnin mukaan – ei kilpailua kellon kanssa. Ei vielä toipumisvaiheen kova intervalliharjoitus.</p><button class="button secondary small-btn" data-prefill="Rauhallinen EMOM/AMRAP (myöhempi vaihe)">Valitse päiväkirjaan</button></div>
 <div class="idea"><span class="badge">Liikkeiden korvaaminen</span><h3>Polviystävälliset vaihtoehdot</h3><p>Takakyykyn tilalla jalkaprässi sopivalla liikeradalla tai kivuton laite. Leuanvedon kehitys avustetulla leuanvetolaitteella, ylätaljalla ja soudulla. Oireilevaa liikettä muutetaan tai jätetään pois.</p></div>
 </div>
+<div class="section card" id="ouraConnectCard">
+<div class="section-title"><h2>Oura – treenien haku</h2><span class="chip">Kokeilu · 1.3</span></div>
+<p class="help">Käytä omaa Oura Developer -sovellustasi. Kirjaudu suoraan Ouran kautta; sovellus pyytää vain <b>workout</b>-käyttöluvan. Oura-tilisi salasanaa tai Client Secret -tunnusta <b>ei</b> kirjoiteta tähän. Kirjautuminen on uusittava noin 30 päivän välein. Oura-tiedot haetaan vain, kun painat päivityspainiketta.</p>
+<div class="field"><label for="ouraClientId">Oura Client ID (ei salainen)</label><input id="ouraClientId" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Liitä Oura Developer -palvelusta saatu Client ID"></div>
+<p class="help" style="margin-top:-6px">Rekisteröi oma sovelluksesi osoitteessa <a href="https://developer.ouraring.com/" target="_blank" rel="noopener noreferrer">developer.ouraring.com</a>. Website: <code>https://sonimaja.github.io/pt-app/</code>. Redirect URI (täsmälleen): <code>https://sonimaja.github.io/pt-app/</code>. Älä julkaise salaisuuksia GitHubissa.</p>
+<div class="button-row"><button class="button" id="ouraConnect">Yhdistä Oura</button><button class="button secondary" id="ouraSync">Päivitä Oura-treenit</button><button class="button ghost" id="ouraDisconnect">Katkaise yhteys</button></div>
+<p class="help" id="ouraConnectionInfo" role="status" aria-live="polite" style="margin-top:12px">Oura ei ole yhdistetty.</p>
+<div class="note warn" style="margin-top:9px"><b>Huomio tietosuojasta:</b> Ouran antama määräaikainen käyttöoikeustunnus tallennetaan tämän laitteen selaimen tallennustilaan, ei GitHubiin eikä varmuuskopioihin. Älä käytä jaetulla laitteella. Tämä on henkilökohtainen prototyyppi, ei tietoturva-auditoitu terveystietopalvelu. Jos selain estää Ouran rajapintapyynnöt, haku ei toimi tällä toteutuksella.</div>
+</div>
+<div class="section card" id="healthImportCard">
+<div class="section-title"><h2>Apple Health – tuo treenit</h2><span class="chip">Uusi · 1.2</span></div>
+<p class="help">Tämä verkkosovellus ei voi lukea Healthia suoraan. Voit tuoda harjoitukset puhelimesi kautta tiedostona tai Pikakomennon kopioimana tekstinä. Tuonti käsitellään tässä selaimessa, mitään ei lähetetä GitHubiin tai ChatGPT:hen.</p>
+<div class="button-row">
+<label class="button secondary" for="healthImportFile" style="cursor:pointer;margin:0">Valitse treenitiedosto</label><input id="healthImportFile" class="hidden" type="file" accept=".xml,.txt,.csv,.json,text/xml,text/plain,text/csv,application/json">
+<button class="button ghost" id="pasteHealthClipboard">Liitä Pikakomennoista</button>
+</div>
+<div class="field" style="margin-top:14px"><label for="healthImportText">Tai liitä treenilista tähän</label><textarea id="healthImportText" placeholder="2026-10-18 12:15 | Kuntosali | 40 | 180&#10;2026-10-16 17:00 | Kävely | 30 | 90"></textarea></div>
+<button class="button secondary small-btn" id="parseHealthText">Tarkista liitetyt treenit</button>
+<div id="healthImportPreview" class="review hidden"></div>
+<div class="note" style="margin-top:12px"><b>Tuetut muodot:</b> Apple Health -sovelluksen <code>export.xml</code>, päiväys | laji | kesto | kcal -tekstirivit, CSV tai JSON. Tuo vain omaan puhelimeesi tallennettu tiedosto. Sovellus ei vaadi kaikkien terveystietojen jakamista verkkopalveluun.</div>
+</div>
 <div class="section columns"><div class="card"><h2 style="margin:0 0 15px;font-size:18px">Kirjaa liikunta</h2><div class="field"><label for="workoutKind">Mitä teit?</label><input id="workoutKind" placeholder="Esim. 25 min kevyet laiteparit"></div><div class="form-row"><div class="field"><label for="workoutMinutes">Kesto (min)</label><input type="number" min="0" max="360" id="workoutMinutes" placeholder="30"></div><div class="field"><label for="workoutEffort">Rasittavuus</label><select id="workoutEffort"><option value="Kevyt">Kevyt</option><option value="Kohtalainen">Kohtalainen</option><option value="Raskas">Raskas</option></select></div></div>
 <div class="form-row"><div class="field"><label for="workoutPain">Vatsakipua treenatessa?</label><select id="workoutPain"><option value="Ei">Ei</option><option value="Kyllä">Kyllä</option></select></div><div class="field"><label for="workoutKnee">Polvissa kipua?</label><select id="workoutKnee"><option value="Ei">Ei</option><option value="Kyllä">Kyllä</option></select></div></div>
-<div class="field"><label for="workoutNotes">Huomiot</label><textarea id="workoutNotes" placeholder="Liikkeet, toistot, palautuminen, vatsa ja polvet..."></textarea></div><button class="button" id="saveWorkout">Tallenna harjoitus</button></div><div class="card"><h2 style="margin:0 0 15px;font-size:18px">Viimeaikaiset harjoitukset</h2><div id="workoutList"></div><div class="note" style="margin-top:15px">Oura/Apple Health -tiedot eivät vielä siirry tähän automaattisesti. Käytä oireita ja omaa vointia ensisijaisesti kuormituksen säätelyyn.</div></div></div>
+<div class="field"><label for="workoutNotes">Huomiot</label><textarea id="workoutNotes" placeholder="Liikkeet, toistot, palautuminen, vatsa ja polvet..."></textarea></div><button class="button" id="saveWorkout">Tallenna harjoitus</button></div><div class="card"><h2 style="margin:0 0 15px;font-size:18px">Viimeaikaiset harjoitukset</h2><div id="workoutList"></div><div class="note" style="margin-top:15px">Apple Health -harjoitukset voit tuoda yllä olevasta toiminnosta. Tuotuihin treeneihin ei liity vatsan tai polvien oirearviota – kirjaa ne erikseen tarvittaessa. Oireet menevät aktiivisuusmittarin edelle.</div></div></div>
 </section>
 <section class="panel" id="weekly"><div class="section-title"><h2>Viikkokatsaus</h2><span class="chip">Sunnuntaisin</span></div><div class="columns"><div class="card"><div class="field"><label for="weekDate">Viikon päivämäärä</label><input id="weekDate" type="date"></div><div class="form-row"><div class="field"><label for="weekWeight">Paino (kg)</label><input id="weekWeight" type="number" step="0.1" min="20" max="250" inputmode="decimal" placeholder="Esim. 72,5"></div><div class="field"><label for="weekFeeling">Miten viikko meni?</label><select id="weekFeeling"><option value="Hyvin">Hyvin</option><option value="Vaihtelevasti">Vaihtelevasti</option><option value="Haastavasti">Haastavasti</option></select></div></div><div class="field"><label for="weekDigestion">Vatsan tilanne</label><select id="weekDigestion"><option value="Pääosin rauhallinen">Pääosin rauhallinen</option><option value="Jonkin verran oireita">Jonkin verran oireita</option><option value="Paljon oireita">Paljon oireita</option></select></div><div class="field"><label for="weekNotes">Mikä onnistui ja mikä oli hankalaa?</label><textarea id="weekNotes" placeholder="Syöminen, energia, treenit, palautuminen, vatsan vointi..."></textarea></div><button class="button" id="saveWeek">Tallenna viikkokatsaus</button><p class="help">Painon kehitystä tarkastellaan yhdessä voinnin ja ravitsemuksen kanssa, ei yksittäisen lukeman perusteella.</p></div><div class="card"><h2 style="margin-top:0;font-size:18px">Painon kehitys</h2><div class="chart" id="weightChart"></div><h2 style="margin:20px 0 8px;font-size:18px">Aiemmat katsaukset</h2><div id="weekList"></div></div></div><div class="section card"><div class="section-title"><h2>Yhteenveto valmentajalle</h2></div><p class="help">Kooste muodostetaan vain puhelimessa tallennetuista merkinnöistä. Se ei lähde ChatGPT:hen itsestään.</p><div class="button-row"><button class="button secondary" id="copySummary">Kopioi tämän viikon yhteenveto</button><button class="button ghost" id="downloadSummary">Lataa yhteenveto .txt</button></div></div></section>
 <section class="panel" id="ideas"><div class="section-title"><h2>Kasvispainotteiset ruokaideat</h2></div>
@@ -70,9 +91,9 @@
 <div class="idea"><span class="badge">Proteiinia pehmeästi</span><h3>Kananmuna ja perunasose</h3><p>Pehmeä muna ja pieni annos perunasosetta tai muita kypsennettyjä kasviksia. Sopii vaihtoehdoksi, jos liha tuntuu raskaalta.</p></div>
 <div class="idea"><span class="badge">Kokeiltavaksi varoen</span><h3>Hyvin kypsennetyt pavut</h3><p>Aloita pienellä määrällä hienoksi soseutettuna; seuraa vatsan tuntemuksia. Lisää kuitua asteittain ja juo riittävästi.</p></div>
 </div><div class="section note">💡 Kun lisäät omia suosikkireseptejäsi tai valmennusesimerkkejä tähän keskusteluun, voidaan näitä ideoita mukauttaa niiden mukaan. Tämä sovellus ei tällä hetkellä hae reseptejä Instagramista tai muista palveluista. Pidä henkilökohtainen terveystaustasi ja valmennusmateriaalisi erillään mahdollisesta julkisesta sovelluskoodista.</div></section>
-<section class="panel" id="settings"><div class="section-title"><h2>Tiedot ja asetukset</h2></div><div class="columns"><div class="card"><h2 style="margin:0 0 10px;font-size:18px">Seurannan tavoitteet</h2><p class="help">Proteiinitavoitetta ei arvata puolestasi leikkauksen perusteella. Aseta se, kun tavoite on sovittu hoitavan tahon kanssa.</p><div class="field"><label for="targetProtein">Päivän proteiinitavoite (g) – vapaaehtoinen</label><input type="number" min="1" max="250" id="targetProtein" placeholder="Ei asetettu"></div><button class="button secondary" id="saveSettings">Tallenna tavoite</button><hr style="border:0;border-top:1px solid var(--line);margin:21px 0"><h2 style="margin:0 0 10px;font-size:18px">Tietojen hallinta</h2><p class="help">Merkinnät tallennetaan vain tämän selaimen/laitteen paikalliseen tallennustilaan. Sovellus ei lähetä niitä palvelimelle. Älä kuitenkaan pidä tätä salattuna potilastietojärjestelmänä: laitteen lukitus ja säännöllinen varmuuskopiointi ovat tärkeitä.</p><div class="button-row"><button class="button" id="exportData">Varmuuskopioi JSON</button><label class="button secondary" for="importData" style="margin:0;cursor:pointer">Palauta varmuuskopio</label><input type="file" id="importData" accept="application/json,.json" class="hidden"></div><p class="help">Vienti- ja tuontitiedostot sisältävät henkilökohtaisia terveystietoja. Säilytä tiedosto yksityisesti, esimerkiksi omassa iCloud Drivessa.</p><button class="button warn small-btn" id="clearData">Poista kaikki paikalliset tiedot</button></div><div class="card"><h2 style="margin:0 0 10px;font-size:18px">Mitä ei ole vielä automatisoitu?</h2><div class="data-row"><span>Sanallinen ruokailun arvio</span><span class="chip">Kyllä, rajattu</span></div><div class="data-row"><span>Omat kirjaus- ja viikkotiedot</span><span class="chip">Kyllä</span></div><div class="data-row"><span>Oura / Apple Health</span><span class="chip">Ei vielä</span></div><div class="data-row"><span>ChatGPT-älyvalmennus</span><span class="chip">Kopioimalla</span></div><div class="data-row"><span>Puhelimen taustailmoitukset</span><span class="chip">Erikseen</span></div><div class="note" style="margin-top:14px">Tämä on sovelluksen ensimmäinen prototyyppi, ei lääkinnällinen ohjelmisto. Näyttää vain kirjatun ruoan arvioidut ravintosisällöt; puuttuvat kirjaukset eivät tarkoita, että ravintoa olisi saatu liian vähän.</div></div></div></section>
+<section class="panel" id="settings"><div class="section-title"><h2>Tiedot ja asetukset</h2></div><div class="columns"><div class="card"><h2 style="margin:0 0 10px;font-size:18px">Seurannan tavoitteet</h2><p class="help">Proteiinitavoitetta ei arvata puolestasi leikkauksen perusteella. Aseta se, kun tavoite on sovittu hoitavan tahon kanssa.</p><div class="field"><label for="targetProtein">Päivän proteiinitavoite (g) – vapaaehtoinen</label><input type="number" min="1" max="250" id="targetProtein" placeholder="Ei asetettu"></div><button class="button secondary" id="saveSettings">Tallenna tavoite</button><hr style="border:0;border-top:1px solid var(--line);margin:21px 0"><h2 style="margin:0 0 10px;font-size:18px">Tietojen hallinta</h2><p class="help">Ruoka-, oire- ja treenikirjaukset tallennetaan selaimen paikalliseen tallennustilaan. Oura-yhteys lähettää rajapintakutsuja suoraan Ouralle; kirjauksia ei lähetetä GitHubiin eikä ChatGPT:hen. Älä kuitenkaan pidä tätä salattuna potilastietojärjestelmänä: laitteen lukitus ja säännöllinen varmuuskopiointi ovat tärkeitä.</p><div class="button-row"><button class="button" id="exportData">Varmuuskopioi JSON</button><label class="button secondary" for="importData" style="margin:0;cursor:pointer">Palauta varmuuskopio</label><input type="file" id="importData" accept="application/json,.json" class="hidden"></div><p class="help">Vienti- ja tuontitiedostot sisältävät henkilökohtaisia terveystietoja. Säilytä tiedosto yksityisesti, esimerkiksi omassa iCloud Drivessa.</p><button class="button warn small-btn" id="clearData">Poista kaikki paikalliset tiedot</button></div><div class="card"><h2 style="margin:0 0 10px;font-size:18px">Mitä ei ole vielä automatisoitu?</h2><div class="data-row"><span>Sanallinen ruokailun arvio</span><span class="chip">Kyllä, rajattu</span></div><div class="data-row"><span>Omat kirjaus- ja viikkotiedot</span><span class="chip">Kyllä</span></div><div class="data-row"><span>Apple Healthin harjoitukset</span><span class="chip">Tuonti</span></div><div class="data-row"><span>Oura-harjoitusten haku</span><span class="chip">Kokeilu / painikkeella</span></div><div class="data-row"><span>ChatGPT-älyvalmennus</span><span class="chip">Kopioimalla</span></div><div class="data-row"><span>Puhelimen taustailmoitukset</span><span class="chip">Erikseen</span></div><div class="note" style="margin-top:14px">Tämä on sovelluksen ensimmäinen prototyyppi, ei lääkinnällinen ohjelmisto. Näyttää vain kirjatun ruoan arvioidut ravintosisällöt; puuttuvat kirjaukset eivät tarkoita, että ravintoa olisi saatu liian vähän.</div></div></div></section>
 </main>
-<div class="footer">Sofia PT · Tiedot pysyvät selaimessasi, ellet itse vie tai kopioi niitä. Tee JSON-varmuuskopio säännöllisesti.<br>Ei lääkärin tai ravitsemusterapeutin korvike.</div>
+<div class="footer">Sofia PT · Päiväkirjan tiedot pysyvät selaimessasi, ellet itse vie tai kopioi niitä. Tee JSON-varmuuskopio säännöllisesti.<br>Ei lääkärin tai ravitsemusterapeutin korvike.</div>
 </div>
 <script>
 'use strict';
@@ -137,12 +158,185 @@ function render(){let date=localDate();$('todayDate').textContent=dateLabel(date
 let meals=db.meals.filter(x=>x.date===date).sort((a,b)=>stamp(b).localeCompare(stamp(a)));let sums={protein:0,kcal:0};meals.forEach(x=>{sums.protein+=+x.protein||0;sums.kcal+=+x.kcal||0});$('proteinSum').textContent=format(sums.protein);$('kcalSum').textContent=format(sums.kcal);$('mealCount').textContent=meals.length;$('lastMeal').textContent=meals.length?'Viimeksi '+meals[0].time:'Ei kirjauksia';let target=Number(db.settings.targetProtein);$('proteinBar').style.width=target?Math.min(100,100*sums.protein/target)+'%':'0%';$('proteinTargetHelp').textContent=target?'Oma tavoite: '+format(target)+' g':'Tavoite ei asetettu';
 $('mealList').innerHTML=meals.length?meals.map(x=>`<div class="entry"><div><b>${safe(x.time)} · ${safe(x.description)}</b><p>≈ ${format(x.kcal)} kcal · HH ${format(x.carbs)} g · R ${format(x.fat)} g ${!x.estimated?'· käsin arvioitu':''}</p><button class="link" data-remove="meals" data-id="${safe(x.id)}">Poista</button></div><div class="value">${format(x.protein)} <span>g prot.</span></div></div>`).join(''):'<div class="empty">Tälle päivälle ei vielä kirjauksia.<br>Kirjaa ensimmäinen ateria vasemmalta.</div>';
 let sx=db.symptoms.slice().sort((a,b)=>b.at.localeCompare(a.at)).slice(0,25);$('symptomList').innerHTML=sx.length?sx.map(x=>`<div class="entry"><div><b>${safe(x.type)} · ${safe(x.severity)}/5</b><p>${safe(x.at.replace('T',' '))} ${safe(x.note||'')}</p><button class="link" data-remove="symptoms" data-id="${safe(x.id)}">Poista</button></div></div>`).join(''):'<div class="empty">Ei oirekirjauksia.</div>';
-let wx=db.workouts.slice().sort((a,b)=>b.at.localeCompare(a.at)).slice(0,25);$('workoutList').innerHTML=wx.length?wx.map(x=>`<div class="entry"><div><b>${safe(x.kind)}</b><p>${safe(x.at.slice(0,10))} · ${format(x.minutes)} min · ${safe(x.effort)} · Vatsakipua: ${safe(x.pain)} · Polvioiretta: ${safe(x.knee||'ei kirjattu')}</p><p>${safe(x.notes||'')}</p><button class="link" data-remove="workouts" data-id="${safe(x.id)}">Poista</button></div></div>`).join(''):'<div class="empty">Ei vielä tallennettuja treenejä.</div>';
+let wx=db.workouts.slice().sort((a,b)=>b.at.localeCompare(a.at)).slice(0,25);$('workoutList').innerHTML=wx.length?wx.map(x=>`<div class="entry"><div><b>${safe(x.kind)}${x.source?' · <span class="chip">'+safe(x.source)+'</span>':''}</b><p>${safe(x.at.replace('T',' ').slice(0,16))} · ${format(x.minutes)} min${x.calories!=null?' · '+format(x.calories)+' aktiivista kcal':''}${x.source?' · Oireita ei sisälly laitetietoihin':' · '+safe(x.effort)+' · Vatsakipua: '+safe(x.pain)+' · Polvioiretta: '+safe(x.knee||'ei kirjattu')}</p><p>${safe(x.notes||'')}</p><button class="link" data-remove="workouts" data-id="${safe(x.id)}">Poista</button></div></div>`).join(''):'<div class="empty">Ei vielä tallennettuja treenejä.</div>';
 let wk=db.weeks.slice().sort((a,b)=>b.date.localeCompare(a.date));$('weekList').innerHTML=wk.length?wk.slice(0,10).map(x=>`<div class="entry"><div><b>${safe(x.date)} · ${safe(x.feeling)}</b><p>${safe(x.digestion)} · ${safe(x.notes||'')}</p><button class="link" data-remove="weeks" data-id="${safe(x.id)}">Poista</button></div><div class="value">${x.weight?Number(x.weight).toLocaleString('fi-FI')+' kg':'–'}</div></div>`).join(''):'<div class="empty">Viikkokatsaukset ilmestyvät tähän.</div>';chartWeight(wk);
 }
 function chartWeight(wk){let vals=wk.filter(x=>x.weight&&Number.isFinite(+x.weight)).slice().sort((a,b)=>a.date.localeCompare(b.date)).slice(-12);if(!vals.length){$('weightChart').innerHTML='<div class="empty">Painokäyrä piirtyy viikkokirjauksista.</div>';return}let min=Math.min(...vals.map(x=>+x.weight)),max=Math.max(...vals.map(x=>+x.weight));let lo=min-1,hi=max+1;let width=500,height=150,pad=34;let coords=vals.map((x,i)=>{let px=pad+(width-2*pad)*(vals.length===1?.5:i/(vals.length-1));let py=height-pad-(+x.weight-lo)/(hi-lo)*(height-2*pad);return[px,py]});let path=coords.map((p,i)=>(i?'L':'M')+p.map(x=>x.toFixed(1)).join(' ')).join(' ');$('weightChart').innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Painokäyrä, ${vals.length} mittausta"><line x1="${pad}" y1="${height-pad}" x2="${width-pad}" y2="${height-pad}" stroke="#d5dfd4"/><path d="${path}" stroke="#4d8665" stroke-width="3" fill="none"/>${coords.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#4d8665"/>`).join('')}<text x="${pad}" y="17" font-size="12" fill="#5c7867">${max.toLocaleString('fi-FI')} kg</text><text x="${width-pad}" y="17" text-anchor="end" font-size="12" fill="#5c7867">${vals.length} viikkoa</text><text x="${pad}" y="${height-7}" font-size="12" fill="#5c7867">${safe(vals[0].date.slice(5))}</text><text x="${width-pad}" text-anchor="end" y="${height-7}" font-size="12" fill="#5c7867">${safe(vals.at(-1).date.slice(5))}</text></svg>`}
-function summary(){let now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate()-6);let since=localDate(start);let meals=db.meals.filter(x=>x.date>=since);let symptoms=db.symptoms.filter(x=>x.at.slice(0,10)>=since);let workouts=db.workouts.filter(x=>x.at.slice(0,10)>=since);let weeks=db.weeks.filter(x=>x.date>=since).sort((a,b)=>b.date.localeCompare(a.date));let unique=[...new Set(meals.map(x=>x.date))].sort();let lines=[`SOFIA PT · VIIKKOKOOSTE ${since} – ${localDate()}`,'',`Kirjattuja aterioita: ${meals.length} (${unique.length} eri päivänä)`];let p=meals.reduce((s,x)=>s+(+x.protein||0),0),k=meals.reduce((s,x)=>s+(+x.kcal||0),0);if(unique.length)lines.push(`Kirjauspäivien keskiarvo: proteiini ≈ ${format(p/unique.length)} g/pv, energia ≈ ${format(k/unique.length)} kcal/pv. Tämä ei kerro todellista kokonaissaantia, jos kaikki ateriat eivät ole kirjattuja.`);lines.push('','Oireet: '+symptoms.length+' kirjausta');symptoms.forEach(x=>lines.push('- '+x.at+': '+x.type+' '+x.severity+'/5. '+(x.note||'')));lines.push('','Treenit: '+workouts.length+' kirjausta');workouts.forEach(x=>lines.push('- '+x.at.slice(0,10)+': '+x.kind+', '+x.minutes+' min ('+x.effort+'), vatsakipua: '+x.pain+'. '+(x.notes||'')));lines.push('','Viikkopalaute:');weeks.forEach(x=>lines.push('- '+x.date+': paino '+(x.weight||'ei kirjattu')+' kg; '+x.feeling+'; vatsa: '+x.digestion+'; '+(x.notes||'')));lines.push('','Arviointiohje: älä tulkitse kirjaamattomia ruokia puuttuvaksi syömiseksi. Huomioi oireet ja leikkauksesta toipuminen. Ei diagnooseja eikä painonpudotuksen kiirehtimistä.');return lines.join('\n')}
+function summary(){let now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate()-6);let since=localDate(start);let meals=db.meals.filter(x=>x.date>=since);let symptoms=db.symptoms.filter(x=>x.at.slice(0,10)>=since);let workouts=db.workouts.filter(x=>x.at.slice(0,10)>=since);let weeks=db.weeks.filter(x=>x.date>=since).sort((a,b)=>b.date.localeCompare(a.date));let unique=[...new Set(meals.map(x=>x.date))].sort();let lines=[`SOFIA PT · VIIKKOKOOSTE ${since} – ${localDate()}`,'',`Kirjattuja aterioita: ${meals.length} (${unique.length} eri päivänä)`];let p=meals.reduce((s,x)=>s+(+x.protein||0),0),k=meals.reduce((s,x)=>s+(+x.kcal||0),0);if(unique.length)lines.push(`Kirjauspäivien keskiarvo: proteiini ≈ ${format(p/unique.length)} g/pv, energia ≈ ${format(k/unique.length)} kcal/pv. Tämä ei kerro todellista kokonaissaantia, jos kaikki ateriat eivät ole kirjattuja.`);lines.push('','Oireet: '+symptoms.length+' kirjausta');symptoms.forEach(x=>lines.push('- '+x.at+': '+x.type+' '+x.severity+'/5. '+(x.note||'')));lines.push('','Treenit: '+workouts.length+' kirjausta');workouts.forEach(x=>lines.push('- '+x.at.slice(0,10)+': '+x.kind+', '+x.minutes+' min'+(x.source?' ['+x.source+']':' ('+x.effort+'), vatsakipua: '+x.pain)+(x.calories!=null?', '+x.calories+' aktiivista kcal':'')+'. '+(x.notes||'')));lines.push('','Viikkopalaute:');weeks.forEach(x=>lines.push('- '+x.date+': paino '+(x.weight||'ei kirjattu')+' kg; '+x.feeling+'; vatsa: '+x.digestion+'; '+(x.notes||'')));lines.push('','Arviointiohje: älä tulkitse kirjaamattomia ruokia puuttuvaksi syömiseksi. Huomioi oireet ja leikkauksesta toipuminen. Ei diagnooseja eikä painonpudotuksen kiirehtimistä.');return lines.join('\n')}
 function download(text,name,type){let url=URL.createObjectURL(new Blob([text],{type}));let a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+// Apple Health -tuonti on vain lokaalissa selaimessa, ei palvelinrajapintaa.
+let healthPending=[];
+const workoutFinnish={
+ 'TraditionalStrengthTraining':'Voimaharjoittelu','FunctionalStrengthTraining':'Toiminnallinen voimaharjoittelu',
+ 'Walking':'Kävely','Running':'Juoksu','Cycling':'Pyöräily','IndoorCycling':'Sisäpyöräily',
+ 'HighIntensityIntervalTraining':'Intervallitreeni','CoreTraining':'Keskivartalotreeni','Yoga':'Jooga',
+ 'Pilates':'Pilates','Rowing':'Soutu','Elliptical':'Crosstrainer','Hiking':'Retkeily',
+ 'Swimming':'Uinti','MixedCardio':'Sekalainen kestävyystreeni','Other':'Muu harjoittelu',
+ 'CrossTraining':'Cross training','MindAndBody':'Kehonhuolto'
+};
+function parseAppleDate(raw){
+ let t=String(raw||'').trim();
+ let m=t.match(/^(\d{4}-\d{2}-\d{2})\s+(\d\d:\d\d)(?::\d\d)?\s*([+-]\d{4})?$/);
+ if(m){if(m[3]){let zone=m[3].slice(0,3)+':'+m[3].slice(3);let date=new Date(m[1]+'T'+m[2]+':00'+zone);if(!isNaN(date))return localDatetime(date);}return m[1]+'T'+m[2]}
+ let iso=t.match(/^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2})/);
+ if(iso)return iso[1]+'T'+iso[2];
+ return '';
+}
+function workoutName(s){let label=String(s||'').replace(/^HKWorkoutActivityType/,'').trim();return workoutFinnish[label]||label.replace(/([a-z])([A-Z])/g,'$1 $2')||'Harjoitus'}
+function numeric(x){if(x==null||String(x).trim()==='')return null;let n=Number(String(x).replace(',','.'));return Number.isFinite(n)&&n>=0?n:null}
+function normalizeWorkout(w){
+ let at=parseAppleDate(w.at||w.startDate||w.start||w.date||w.aika||w.päivä||w.paiva);
+ if(!at)return null;
+ let kind=workoutName(w.kind||w.workoutActivityType||w.type||w.activity||w.laji||'Harjoitus');
+ let duration=numeric(w.minutes??w.duration??w.kesto);if(duration==null)return null;
+ if((w.durationUnit||'').toLowerCase()==='s')duration/=60;
+ else if((w.durationUnit||'').toLowerCase()==='h')duration*=60;
+ if(duration<=0||duration>1440)return null;
+ const calories=numeric(w.calories??w.activeCalories??w.totalEnergyBurned??w.kcal);
+ return {id:makeId(),at,kind,minutes:Math.round(duration*10)/10,calories:calories===null?null:Math.round(calories),
+ source:'Apple Health',effort:'Ei kirjattu',pain:'Ei kirjattu',knee:'Ei kirjattu',notes:'',
+ deviceSource:String(w.deviceSource||w.sourceName||w.source||'').slice(0,80)};
+}
+function xmlAttrs(s){let out={};let re=/([\w:]+)="([^"]*)"/g,m;while((m=re.exec(s))!==null)out[m[1]]=m[2].replace(/&quot;/g,'"').replace(/&amp;/g,'&');return out}
+function appleWorkoutFromTag(s){let a=xmlAttrs(s);let cal=a.totalEnergyBurned;
+ if(cal&&a.totalEnergyBurnedUnit==='kJ')cal=String(Number(cal)/4.184);
+ return normalizeWorkout({...a,calories:cal});}
+function xmlWorkoutText(text){let arr=[],re=/<Workout\s([^>]*?)>/g,m;while((m=re.exec(text))!==null){let w=appleWorkoutFromTag(m[1]);if(w)arr.push(w)}return arr}
+async function xmlWorkoutFile(file){
+ // Etsitään isoista Apple Health -tiedostoista vain Workout-elementit pieninä paloina.
+ // Ei lueta Health-exportin muuta arkaluonteista sisältöä sovelluksen tallennukseen.
+ let reader=file.stream().getReader(),dec=new TextDecoder('utf-8'),carry='',matches=[],max=3500;
+ const threshold=new Date(Date.now()-1000*60*60*24*100).toISOString().slice(0,10);
+ while(true){let chunk=await reader.read();if(chunk.done)break;let data=carry+dec.decode(chunk.value,{stream:true});
+   let re=/<Workout\s([^>]*?)>/g,m,last=0;
+   while((m=re.exec(data))!==null){last=re.lastIndex;let w=appleWorkoutFromTag(m[1]);if(w&&w.at.slice(0,10)>=threshold)matches.push(w)}
+   // Max n. 1KB alusta, jotta katkenneet avaintagit säilyvät.
+   let prefix=data.slice(Math.max(last,data.length-1400));let pos=prefix.lastIndexOf('<Workout');
+   carry=pos>=0?prefix.slice(pos):data.slice(-24);
+   if(matches.length>=max)break;
+ }
+ return matches;
+}
+function parseDelimitedText(input){
+ let text=input.trim();if(!text)return [];
+ if(text[0]==='['||text[0]==='{'){
+   let x=JSON.parse(text),list=Array.isArray(x)?x:(x.workouts||x.entries||x.data||[]);
+   if(!Array.isArray(list))throw new Error('JSON ei sisällä treenilistaa.');
+   return list.map(normalizeWorkout).filter(Boolean);
+ }
+ if(text.includes('<HealthData')||text.includes('<Workout '))return xmlWorkoutText(text);
+ const lines=text.split(/\r?\n/).filter(s=>s.trim());const result=[];
+ let header=null;
+ for(const line of lines){let sep=line.includes('|')?'|':line.includes(';')?';':line.includes('\t')?'\t':',';
+   let parts=line.split(sep).map(x=>x.trim().replace(/^"|"$/g,''));
+   if(!header&&parts.some(x=>/^(date|startdate|aika|päivä|paiva)$/i.test(x))){header=parts.map(p=>p.toLowerCase());continue}
+   let obj=header?Object.fromEntries(parts.map((x,i)=>[header[i]||'extra'+i,x])):
+       {at:parts[0],kind:parts[1],minutes:parts[2],calories:parts[3]};
+   let w=normalizeWorkout(obj);if(w)result.push(w);
+ }
+ return result;
+}
+function workoutKey(w){return w.at.slice(0,16)+'|'+w.kind.toLowerCase().replace(/\s+/g,'')+'|'+Math.round(w.minutes||0)}
+function presentHealthPreview(arr){
+ let unique=new Map();for(const w of arr){if(w&&w.at&&w.minutes>0)unique.set(workoutKey(w),w)}
+ healthPending=[...unique.values()].sort((a,b)=>b.at.localeCompare(a.at));
+ let seen=new Set(db.workouts.map(workoutKey)),fresh=healthPending.filter(x=>!seen.has(workoutKey(x)));
+ const el=$('healthImportPreview');el.classList.remove('hidden');
+ if(!healthPending.length){el.innerHTML='<h3>Ei tunnistettuja treenejä</h3><p class="help">Tarkista tiedoston muoto tai kokeile neljän kentän treenirivejä: päivämäärä | laji | minuutit | aktiiviset kcal.</p>';return}
+ el.innerHTML='<h3>Löytyi '+healthPending.length+' harjoitusta</h3><p class="help">'+fresh.length+' uutta; '+(healthPending.length-fresh.length)+' näyttää jo tuodulta. Alla korkeintaan viisi uusinta. Harjoitusten oireita ei voi päätellä Healthista.</p>'+
+  fresh.slice(0,5).map(x=>'<div class="data-row"><span>'+safe(x.at.slice(0,16).replace('T',' '))+' · '+safe(x.kind)+'</span><strong>'+format(x.minutes)+' min</strong></div>').join('')+
+  '<button class="button" id="confirmHealthImport" '+(!fresh.length?'disabled':'')+'>Tallenna '+fresh.length+' uutta treeniä</button>';
+ $('confirmHealthImport').onclick=()=>{
+   const seen2=new Set(db.workouts.map(workoutKey));let newer=healthPending.filter(x=>!seen2.has(workoutKey(x)));if(!newer.length)return;
+   const orig=[...db.workouts];db.workouts.push(...newer);
+   if(!saveDB()){db.workouts=orig;showStatus('Tallennus ei onnistunut: kokeile pienempää määrää ja tee varmuuskopio.',true);return}
+   healthPending=[];el.classList.add('hidden');$('healthImportText').value='';render();showStatus(newer.length+' treeniä tuotu Apple Healthista.');
+ };
+}
+// Oura browser-only OAuth (no client secret, no server). Uses only workout scope.
+const OURA_CLIENT_KEY='sofia_pt_oura_client_id_v1';
+const OURA_AUTH_KEY='sofia_pt_oura_auth_v1';
+const OURA_STATE_KEY='sofia_pt_oura_pending_state_v1';
+const OURA_CALLBACK='https://sonimaja.github.io/pt-app/';
+function localGet(k){try{return localStorage.getItem(k)}catch{return null}}
+function localSet(k,v){try{localStorage.setItem(k,v);return true}catch{return false}}
+function localRemove(k){try{localStorage.removeItem(k)}catch{}}
+function ouraAuth(){try{const v=JSON.parse(localGet(OURA_AUTH_KEY)||'null');if(!v||!v.token||!Number.isFinite(v.until))return null;return v}catch{return null}}
+function ouraConnected(){const a=ouraAuth();return !!(a&&a.until>Date.now()+30000)}
+function updateOuraInfo(msg=''){
+ let v=ouraAuth();let el=$('ouraConnectionInfo');if(!el)return;
+ const connected=ouraConnected();
+ el.textContent=msg||(connected?('Yhdistetty. Oura-yhteys voimassa noin '+Math.ceil((v.until-Date.now())/86400000)+' päivää.'):v?'Käyttöoikeus vanhentunut – yhdistä Oura uudelleen.':'Ei Oura-yhteyttä. Luo Oura Developer -sovellus ja yhdistä se tästä.');
+ $('ouraSync').disabled=!connected;
+ $('ouraDisconnect').disabled=!v;
+}
+function randomState(){const arr=new Uint8Array(20);crypto.getRandomValues(arr);return Array.from(arr,x=>x.toString(16).padStart(2,'0')).join('')}
+function finishOuraRedirect(){
+ const hash=location.hash.startsWith('#')?location.hash.slice(1):'';
+ if(!/(?:^|&)access_token=/.test(hash)&&!/(?:^|&)error=/.test(hash))return;
+ const params=new URLSearchParams(hash);
+ // Immediately erase the sensitive token from the visible URL and history.
+ history.replaceState(null,'',location.pathname+location.search);
+ const expected=localGet(OURA_STATE_KEY);localRemove(OURA_STATE_KEY);
+ if(!expected||params.get('state')!==expected){updateOuraInfo('Kirjautumisen tilatarkistus epäonnistui. Avaa tämä osoite Safarissa (ei kotinäyttökuvakkeesta) ja aloita yhdistäminen samassa selaimessa.');return}
+ if(params.get('error')){updateOuraInfo('Oura-käyttölupaa ei annettu: '+params.get('error'));return}
+ if(params.get('token_type')?.toLowerCase()!=='bearer'||!params.get('access_token')){updateOuraInfo('Oura ei palauttanut kelvollista käyttöoikeustunnusta.');return}
+ const scopes=(params.get('scope')||'').split(/[ +]/).filter(Boolean);
+ if(scopes.length&&!scopes.includes('workout')){updateOuraInfo('Harjoitustietojen käyttöoikeutta ei annettu. Yhdistä uudelleen ja salli Workout.');return}
+ const seconds=Number(params.get('expires_in'));const until=Date.now()+((Number.isFinite(seconds)&&seconds>0?Math.min(seconds,2592000):2592000)-90)*1000;
+ if(!localSet(OURA_AUTH_KEY,JSON.stringify({token:params.get('access_token'),until,scope:scopes.join(' ')}))){updateOuraInfo('Paikallinen tallennus estetty. Yhdistäminen ei voinut säilyä.');return}
+ updateOuraInfo('Oura yhdistetty! Napauta Päivitä Oura-treenit.');
+ // Focus the training tab after returning from Oura authentication.
+ const tab=document.querySelector('[data-tab="training"]');if(tab)tab.click();
+}
+function ouraConnect(){
+ const client=$('ouraClientId').value.trim();
+ if(!/^[a-zA-Z0-9_-]{5,150}$/.test(client)){showStatus('Tarkista Oura Developer -portaalista kopioitu Client ID.',true);return}
+ if(location.origin!==new URL(OURA_CALLBACK).origin||location.pathname!==new URL(OURA_CALLBACK).pathname){showStatus('Oura-kirjautuminen vaatii sovelluksen avaamisen oikeasta GitHub Pages -osoitteesta: '+OURA_CALLBACK,true);return}
+ if(!window.crypto?.getRandomValues){showStatus('Turvallinen kirjautuminen vaatii HTTPS-yhteyden.',true);return}
+ const state=randomState();
+ if(!localSet(OURA_CLIENT_KEY,client)||!localSet(OURA_STATE_KEY,state)){showStatus('Selaimen tallennustila ei ole käytettävissä.',true);return}
+ const u=new URL('https://cloud.ouraring.com/oauth/authorize');
+ u.searchParams.set('response_type','token');u.searchParams.set('client_id',client);u.searchParams.set('redirect_uri',OURA_CALLBACK);
+ u.searchParams.set('scope','workout');u.searchParams.set('state',state);
+ location.assign(u.toString());
+}
+function ouraDateRange(days=45){let end=new Date(),start=new Date(end);start.setDate(end.getDate()-days);return [localDate(start),localDate(end)]}
+function ouraKind(code,label){
+ const x=String(code||'').toLowerCase();const d={walking:'Kävely',running:'Juoksu',cycling:'Pyöräily',strength_training:'Voimaharjoittelu',weight_training:'Voimaharjoittelu',weightlifting:'Voimaharjoittelu',fitness_class:'Ryhmäliikunta',yoga:'Jooga',hiking:'Retkeily',swimming:'Uinti',other:'Muu liikunta',hiit:'Intervalliharjoittelu',rowing:'Soutu'};
+ return (String(label||'').trim()||d[x]||x.replace(/_/g,' ')||'Harjoitus').slice(0,140);
+}
+function normalizeOuraWorkout(x){
+ if(!x||!x.id||!x.start_datetime||!x.end_datetime)return null;
+ let start=new Date(x.start_datetime),end=new Date(x.end_datetime);
+ let duration=Math.round((end-start)/60000);
+ if(!Number.isFinite(duration)||duration<=0||duration>1440)return null;
+ return {id:'oura:'+String(x.id),ouraId:String(x.id),source:'Oura',at:localDatetime(start),kind:ouraKind(x.activity,x.label),minutes:duration,calories:numeric(x.calories),effort:x.intensity||'Ei kirjattu',pain:'Ei kirjattu',knee:'Ei kirjattu',notes:'Oura · '+String(x.source||'harjoitus')};
+}
+async function fetchOuraWorkouts(){
+ const auth=ouraAuth();if(!auth||!ouraConnected()){updateOuraInfo('Yhdistä Oura ennen treenien hakemista.');return}
+ $('ouraSync').disabled=true;updateOuraInfo('Haetaan Ouran harjoituksia…');
+ const [start,end]=ouraDateRange();let url=new URL('https://api.ouraring.com/v2/usercollection/workout');url.searchParams.set('start_date',start);url.searchParams.set('end_date',end);
+ let list=[];let pages=0;
+ try{
+  while(pages++<8){
+   const r=await fetch(url.toString(),{headers:{Authorization:'Bearer '+auth.token,Accept:'application/json'},cache:'no-store',mode:'cors'});
+   if(!r.ok){if(r.status===401){localRemove(OURA_AUTH_KEY);throw new Error('Oura-yhteys on vanhentunut. Yhdistä Oura uudelleen.')}if(r.status===403)throw new Error('Oura ei antanut Workout-tietojen käyttöoikeutta. Tarkista Oura-jäsenyys ja valtuutus.');throw new Error('Oura API -virhe '+r.status)}
+   const body=await r.json();if(!Array.isArray(body.data))throw new Error('Oura palautti odottamattoman tietomuodon.');
+   list.push(...body.data);if(!body.next_token)break;url.searchParams.set('next_token',body.next_token);
+  }
+  const rows=list.map(normalizeOuraWorkout).filter(Boolean);
+  const existingIDs=new Set(db.workouts.filter(x=>x.ouraId||String(x.id||'').startsWith('oura:')).map(x=>String(x.ouraId||String(x.id).slice(5))));
+  const existingKeys=new Set(db.workouts.map(workoutKey));
+  const fresh=rows.filter(x=>!existingIDs.has(x.ouraId)&&!existingKeys.has(workoutKey(x)));
+  const old=db.workouts.slice();db.workouts.push(...fresh);
+  if(!saveDB()){db.workouts=old;throw new Error('Uusien treenien tallennus epäonnistui.')}
+  render();updateOuraInfo('Ourasta löytyi '+rows.length+' harjoitusta viimeiseltä 45 päivältä. '+fresh.length+' uutta tallennettiin.');
+ }catch(e){
+  const cors=e instanceof TypeError?'Ouran rajapintaa ei voitu lukea suoraan selaimesta (mahdollinen selainrajoitus/CORS). Tämä vaatii toisen yhteystavan. Älä käytä kolmannen osapuolen CORS-välityspalvelua terveystiedoille.':e.message;
+  updateOuraInfo('Haku epäonnistui: '+cors);
+ }finally{ $('ouraSync').disabled=!ouraConnected() }
+}
 // Event binding
 for(let b of document.querySelectorAll('[data-tab]'))b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(n=>n.classList.toggle('active',n===b));document.querySelectorAll('.panel').forEach(n=>n.classList.toggle('active',n.id===b.dataset.tab));window.scrollTo(0,0)});
 $('estimateBtn').onclick=renderMealReview;$('cancelMeal').onclick=()=>$('mealReview').classList.add('hidden');
@@ -150,6 +344,18 @@ $('saveMeal').onclick=()=>{let description=$('mealText').value.trim();if(!descri
 $('saveSymptom').onclick=()=>{let at=$('symptomTime').value||localDatetime();db.symptoms.push({id:makeId(),at,type:$('symptomType').value,severity:$('symptomSeverity').value,note:$('symptomNote').value.trim()});saveDB();$('symptomNote').value='';render();showStatus('Oire tallennettu.')};
 for(let b of document.querySelectorAll('[data-prefill]'))b.onclick=()=>{$('workoutKind').value=b.dataset.prefill;$('workoutKind').focus();window.scrollTo({top:document.querySelector('#workoutKind').getBoundingClientRect().top+window.scrollY-120,behavior:'smooth'})};
 $('saveWorkout').onclick=()=>{if(!$('workoutKind').value.trim()){showStatus('Kerro, mitä teit.',true);return}db.workouts.push({id:makeId(),at:localDatetime(),kind:$('workoutKind').value.trim(),minutes:+$('workoutMinutes').value||0,effort:$('workoutEffort').value,pain:$('workoutPain').value,knee:$('workoutKnee').value,notes:$('workoutNotes').value.trim()});saveDB();$('workoutKind').value='';$('workoutMinutes').value='';$('workoutNotes').value='';$('workoutKnee').value='Ei';render();showStatus('Harjoitus tallennettu.')};
+$('ouraClientId').value=localGet(OURA_CLIENT_KEY)||'';
+$('ouraConnect').onclick=ouraConnect;
+$('ouraSync').onclick=fetchOuraWorkouts;
+$('ouraDisconnect').onclick=()=>{localRemove(OURA_AUTH_KEY);localRemove(OURA_STATE_KEY);updateOuraInfo('Oura-yhteys poistettu tästä selaimesta. Jos haluat peruuttaa käyttöluvan myös Ourassa, tee se Oura-tilisi sovellusasetuksista.');};
+updateOuraInfo();finishOuraRedirect();
+$('parseHealthText').onclick=()=>{try{presentHealthPreview(parseDelimitedText($('healthImportText').value))}catch(e){showStatus('Treenien tekstin lukeminen ei onnistunut: '+e.message,true)}};
+$('pasteHealthClipboard').onclick=async()=>{try{const t=await navigator.clipboard.readText();$('healthImportText').value=t;presentHealthPreview(parseDelimitedText(t))}catch(e){showStatus('Leikepöytää ei voitu lukea. Napauta tekstikenttää pitkään ja valitse Liitä.',true)}};
+$('healthImportFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{
+ if(f.name.toLowerCase().endsWith('.zip'))throw new Error('Pura Health-exportin ZIP ensin ja valitse export.xml.');
+ let rows=f.name.toLowerCase().endsWith('.xml')?await xmlWorkoutFile(f):parseDelimitedText(await f.text());
+ presentHealthPreview(rows);
+ }catch(err){showStatus('Tiedoston käsittely epäonnistui: '+err.message,true)}finally{e.target.value=''}};
 $('saveWeek').onclick=()=>{let wt=$('weekWeight').value;if(wt&&(+wt<20||+wt>250)){showStatus('Tarkista painomerkintä.',true);return}let o={id:makeId(),date:$('weekDate').value||localDate(),weight:wt?+wt:null,feeling:$('weekFeeling').value,digestion:$('weekDigestion').value,notes:$('weekNotes').value.trim()};db.weeks=db.weeks.filter(x=>x.date!==o.date);db.weeks.push(o);saveDB();render();showStatus('Viikkokatsaus tallennettu.')};
 $('saveSettings').onclick=()=>{let v=$('targetProtein').value;db.settings.targetProtein=v?Number(v):null;saveDB();render();showStatus('Asetukset tallennettu.')};
 $('exportData').onclick=()=>download(JSON.stringify({...db,exportedAt:new Date().toISOString(),app:'Sofia PT',version:1},null,2),'sofia-pt-varmuuskopio-'+localDate()+'.json','application/json');
